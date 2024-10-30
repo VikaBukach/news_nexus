@@ -3,9 +3,17 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::middleware([\App\Http\Middleware\GoogleRecaptcha::class])->group(function(){
+    Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
+    Route::post('contact_form', [\App\Http\Controllers\IndexController::class, 'index'])->name('contact_form');
 });
+
+Route::prefix("news")->middleware([\App\Http\Middleware\GoogleRecaptcha::class])->group(function(){
+    Route::post('{id}', [\App\Http\Controllers\IndexController::class, 'index'])->name('post');
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

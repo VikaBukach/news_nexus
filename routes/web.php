@@ -4,14 +4,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware([\App\Http\Middleware\GoogleRecaptcha::class])->group(function(){
-    Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
-    Route::post('contact_form', [\App\Http\Controllers\IndexController::class, 'index'])->name('contact_form');
-});
+//Route::middleware([\App\Http\Middleware\GoogleRecaptcha::class])->group(function(){
+//    Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
+//    Route::post('contact_form', [\App\Http\Controllers\IndexController::class, 'index'])->name('contact_form');
+//});
 
-Route::prefix("news")->middleware([\App\Http\Middleware\GoogleRecaptcha::class])->group(function(){
-    Route::post('{id}', [\App\Http\Controllers\IndexController::class, 'index'])->name('post');
-});
+Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
+Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{id}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 
 
 

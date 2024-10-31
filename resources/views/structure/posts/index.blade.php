@@ -1,6 +1,6 @@
 @extends('structure.layout')
 
-@section('title', 'Main page')
+@section('title', 'Posts')
 
 @section('content')
     @include('structure.partials.header')
@@ -9,6 +9,8 @@
         @foreach($posts as $post)
             @include("structure.posts.partials.item", ["post"=>$post])
         @endforeach
+
+        {{ $posts->links() }}
     </div>
 
 @endsection

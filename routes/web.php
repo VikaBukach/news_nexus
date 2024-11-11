@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 //Route::middleware([\App\Http\Middleware\GoogleRecaptcha::class])->group(function(){
 //    Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
-//    Route::post('contact_form', [\App\Http\Controllers\IndexController::class, 'index'])->name('contact_form');
 //});
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
@@ -35,6 +34,34 @@ Route::get('/contacts', [\App\Http\Controllers\IndexController::class, 'showCont
 Route::post('/contact_form_process', [\App\Http\Controllers\IndexController::class, 'contactForm'])->name('contact_form_process');
 
 
+// Routes for admin`s:
+
+// Гостьові маршрути для адміністраторів (без авторизації)
+Route::middleware('guest')
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function() {
+
+        Route::get('/login', [\App\Http\Controllers\Admin\AuthController::class, 'index'])->name('login');
+        Route::post('/login_process', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login_process');
+    });
+
+//# Маршрути для аутентифікації (без middleware)
+//Route::get('admin/login', [\App\Http\Controllers\Admin\AuthController::class, 'index'])->name('admin.login');
+//Route::post('admin/login_process', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('admin.login_process');
+
+
+# Група маршрутів для адміністратора з middleware
+Route::middleware(['auth:admin', \App\Http\Middleware\AdminMiddleware::class])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
+        // Ресурсний маршрут для постів
+        Route::resource('posts', \App\Http\Controllers\Admin\PostController::class);
+
+    });
 
 
 

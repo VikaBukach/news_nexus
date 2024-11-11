@@ -17,7 +17,7 @@
                     @enderror
 
                     <div>
-                        <a href="{{ route("login") }}" class="font-medium text-blue-900 hover:bg-blue-300 rounded-md p-2">I forgot my password!</a>
+                        <a href="{{ route("login") }}" class="font-medium text-blue-900 hover:bg-blue-300 rounded-md p-2">I remembered my password!</a>
                     </div>
 
                     <button type="submit" class="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium">Restore!</button>

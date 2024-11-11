@@ -27,11 +27,8 @@ class AuthController extends Controller
             return redirect(route("home"));
         }
 
-
         return redirect(route("login"))->withErrors(["email" => " User not found or the data is not entered correctly"]);
     }
-
-
 
     public function logout()
     {
@@ -68,7 +65,6 @@ class AuthController extends Controller
 
          return redirect(route("home"));
     }
-
 
     public function register(Request $request)
     {
